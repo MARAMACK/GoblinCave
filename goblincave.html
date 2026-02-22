@@ -1,0 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#0a0e27">
+  <title>GoblinCave</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Grenze+Gotisch:wght@400;700&family=Cinzel:wght@600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Grenze Gotisch', serif;
+      overflow: hidden;
+      background: #0a0e27;
+      color: #e8d5a8;
+      touch-action: pan-y;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* Landing Page */
+    .landing-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1419 100%);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .landing-header {
+      text-align: center;
+      margin-top: 60px;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    .landing-icon {
+      font-size: 80px;
+      margin-bottom: 16px;
+    }
+
+    .landing-title {
+      font-size: 48px;
+      font-weight: 700;
+      color: #d4af37;
+      margin-bottom: 12px;
+    }
+
+    .landing-subtitle {
+      font-size: 18px;
+      color: #e8d5a8;
+      opacity: 0.8;
+      padding: 0 20px;
+    }
+
+    .landing-features {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .feature-item {
+      background: rgba(26, 31, 58, 0.6);
+      border-radius: 16px;
+      padding: 20px;
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      animation: fadeInUp 0.8s ease-out backwards;
+    }
+
+    .feature-item:nth-child(1) { animation-delay: 0.2s; }
+    .feature-item:nth-child(2) { animation-delay: 0.3s; }
+    .feature-item:nth-child(3) { animation-delay: 0.4s; }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .feature-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #d4af37;
+      margin-bottom: 8px;
+    }
+
+    .feature-text {
+      font-size: 15px;
+      color: #e8d5a8;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+
+    .landing-actions {
+      margin-bottom: 40px;
+    }
+
+    .primary-button {
+      width: 100%;
+      background: #d4af37;
+      border: none;
+      border-radius: 12px;
+      padding: 18px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #0a0e27;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Grenze Gotisch', serif;
+    }
+
+    .primary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .primary-button:active {
+      transform: translateY(0);
+    }
+
+    .landing-footer {
+      text-align: center;
+      font-size: 14px;
+      color: #8b7355;
+      margin-top: 16px;
+    }
+
+    /* Auth Screens */
+    .auth-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: #0a0e27;
+      overflow-y: auto;
+    }
+
+    .auth-content {
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .auth-icon {
+      font-size: 60px;
+      margin-bottom: 16px;
+    }
+
+    .auth-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #d4af37;
+      margin-bottom: 8px;
+    }
+
+    .auth-subtitle {
+      font-size: 16px;
+      color: #8b7355;
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .input-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e8d5a8;
+      margin-left: 4px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      align-items: center;
+      background: rgba(26, 31, 58, 0.6);
+      border-radius: 12px;
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      padding: 12px 16px;
+      transition: all 0.3s;
+    }
+
+    .input-wrapper:focus-within {
+      border-color: #d4af37;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .input-icon {
+      font-size: 20px;
+      margin-right: 12px;
+    }
+
+    .auth-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: #e8d5a8;
+      font-family: 'Grenze Gotisch', serif;
+    }
+
+    .auth-input::placeholder {
+      color: #8b7355;
+    }
+
+    .forgot-password {
+      align-self: flex-end;
+      font-size: 14px;
+      color: #d4af37;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .auth-button {
+      width: 100%;
+      background: #d4af37;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #0a0e27;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+      font-family: 'Grenze Gotisch', serif;
+    }
+
+    .auth-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .auth-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .auth-switch {
+      text-align: center;
+      font-size: 14px;
+      color: #8b7355;
+    }
+
+    .auth-switch-link {
+      color: #d4af37;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .terms-text {
+      font-size: 12px;
+      color: #8b7355;
+      text-align: center;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    /* Modal Overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-content {
+      background: rgba(15, 20, 35, 0.98);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .settings-modal {
+      background: rgba(15, 20, 35, 0.98);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      animation: slideUp 0.3s ease-out;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #d4af37;
+    }
+
+    .modal-close {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #8b7355;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: rgba(212, 175, 55, 0.2);
+      color: #d4af37;
+    }
+
+    /* Tab Container */
+    .tab-container {
+      display: flex;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .tab {
+      flex: 1;
+      padding: 16px;
+      text-align: center;
+      font-size: 16px;
+      color: #8b7355;
+      cursor: pointer;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .tab.active {
+      color: #d4af37;
+      font-weight: 600;
+      border-bottom-color: #d4af37;
+    }
+
+    .tab-content {
+      padding: 20px;
+    }
+
+    .modal-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e8d5a8;
+      margin-bottom: 12px;
+      margin-top: 16px;
+    }
+
+    .modal-description {
+      font-size: 14px;
+      color: #8b7355;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .icon-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+
+    .icon-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .icon-scroll::-webkit-scrollbar-track {
+      background: rgba(26, 31, 58, 0.4);
+      border-radius: 2px;
+    }
+
+    .icon-scroll::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 2px;
+    }
+
+    .icon-option {
+      min-width: 56px;
+      height: 56px;
+      border-radius: 28px;
+      background: rgba(26, 31, 58, 0.6);
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .icon-option.active {
+      border-color: #d4af37;
+      background: rgba(212, 175, 55, 0.2);
+      transform: scale(1.1);
+    }
+
+    .modal-input-wrapper {
+      background: rgba(26, 31, 58, 0.6);
+      border-radius: 12px;
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      padding: 12px 16px;
+      margin-bottom: 16px;
+    }
+
+    .modal-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      color: #e8d5a8;
+      font-family: 'Grenze Gotisch', serif;
+    }
+
+    .modal-input::placeholder {
+      color: #8b7355;
+    }
+
+    .modal-button {
+      width: 100%;
+      background: #d4af37;
+      border: none;
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0a0e27;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 8px;
+      font-family: 'Grenze Gotisch', serif;
+    }
+
+    .modal-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    }
+
+    .skip-button {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 16px;
+      font-size: 14px;
+      color: #8b7355;
+      cursor: pointer;
+      text-align: center;
+      font-family: 'Grenze Gotisch', serif;
+    }
+
+    /* Settings Styles */
+    .settings-section {
+      padding: 20px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .settings-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #8b7355;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .profile-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .profile-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 32px;
+      background: #d4af37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      border: 3px solid rgba(212, 175, 55, 0.5);
+    }
+
+    .profile-info {
+      flex: 1;
+    }
+
+    .profile-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #e8d5a8;
+      margin-bottom: 4px;
+    }
+
+    .profile-email {
+      font-size: 14px;
+      color: #8b7355;
+    }
+
+    .status-option {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      background: rgba(26, 31, 58, 0.4);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .status-option:hover {
+      background: rgba(26, 31, 58, 0.6);
+    }
+
+    .status-option.active {
+      background: rgba(212, 175, 55, 0.2);
+      border: 2px solid rgba(212, 175, 55, 0.4);
+    }
+
+    .status-icon {
+      font-size: 20px;
+      margin-right: 12px;
+    }
+
+    .status-label {
+      flex: 1;
+      font-size: 16px;
+      color: #e8d5a8;
+    }
+
+    .status-label.active {
+      font-weight: 600;
+      color: #d4af37;
+    }
+
+    .status-check {
+      font-size: 18px;
+      color: #d4af37;
+    }
+
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .setting-info {
+      flex: 1;
+      margin-right: 16px;
+    }
+
+    .setting-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e8d5a8;
+      margin-bottom: 4px;
+    }
+
+    .setting-description {
+      font-size: 13px;
+      color: #8b7355;
+      line-height: 1.4;
+    }
+
+    /* Custom Toggle Switch */
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 28px;
+      background: #4b5563;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .toggle-switch.active {
+      background: #d4af37;
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 22px;
+      height: 22px;
+      background: white;
+      border-radius: 11px;
+      transition: transform 0.3s;
+    }
+
+    .toggle-switch.active .toggle-thumb {
+      transform: translateX(20px);
+    }
+
+    .about-text {
+      font-size: 14px;
+      color: #8b7355;
+      margin-bottom: 8px;
+    }
+
+    /* Main App Layout */
+    .app-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      background: #0a0e27;
+      overflow: hidden;
+    }
+
+    /* Server List */
+    .server-list {
+      width: 72px;
+      background: rgba(10, 14, 27, 0.95);
+      border-right: 2px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 0;
+      gap: 8px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .server-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: rgba(26, 31, 58, 0.9);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .server-icon:hover,
+    .server-icon:active {
+      border-radius: 12px;
+      border-color: rgba(212, 175, 55, 0.8);
+      transform: scale(1.05);
+    }
+
+    .server-icon.active {
+      border-radius: 12px;
+      background: rgba(212, 175, 55, 0.3);
+      border-color: #d4af37;
+    }
+
+    .server-icon.active::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      width: 4px;
+      height: 40px;
+      background: #d4af37;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .home-button {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      background: #d4af37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: all 0.3s;
+    }
+
+    .home-button:hover,
+    .home-button:active {
+      border-radius: 12px;
+      transform: scale(1.05);
+    }
+
+    .add-server {
+      width: 48px;
+      height: 48px;
+      border-radius: 24px;
+      background: rgba(26, 31, 58, 0.6);
+      border: 2px dashed rgba(212, 175, 55, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: #d4af37;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: all 0.3s;
+    }
+
+    .add-server:hover,
+    .add-server:active {
+      background: rgba(212, 175, 55, 0.2);
+      border-color: #d4af37;
+    }
+
+    .divider {
+      width: 36px;
+      height: 2px;
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 1px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 240px;
+      background: rgba(15, 20, 35, 0.95);
+      border-right: 2px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-240px);
+    }
+
+    .server-header {
+      padding: 16px;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+      font-size: 18px;
+      font-weight: 600;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .channels {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px;
+    }
+
+    .channel-category {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #8b7355;
+      padding: 16px 8px 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .channel {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      margin: 2px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      gap: 8px;
+      position: relative;
+    }
+
+    .channel:hover,
+    .channel:active {
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    .channel.active {
+      background: rgba(212, 175, 55, 0.25);
+      color: #d4af37;
+      font-weight: 600;
+    }
+
+    .channel.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: #d4af37;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .user-area {
+      padding: 12px;
+      background: rgba(10, 14, 27, 0.6);
+      border-top: 2px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      background: #d4af37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border: 2px solid rgba(212, 175, 55, 0.5);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .user-status-dot {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 12px;
+      height: 12px;
+      border-radius: 6px;
+      border: 2px solid rgba(10, 14, 27, 0.6);
+    }
+
+    .user-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e8d5a8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .user-status {
+      font-size: 11px;
+      color: #8b7355;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .user-controls {
+      display: flex;
+      gap: 4px;
+    }
+
+    .icon-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: rgba(212, 175, 55, 0.1);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover,
+    .icon-btn:active {
+      background: rgba(212, 175, 55, 0.3);
+      transform: scale(1.1);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .chat-header {
+      height: 60px;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      background: rgba(15, 20, 35, 0.7);
+      flex-shrink: 0;
+    }
+
+    .menu-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #d4af37;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .menu-btn:hover,
+    .menu-btn:active {
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    .channel-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: #d4af37;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .toolbar-btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .toolbar-btn:hover,
+    .toolbar-btn:active {
+      background: rgba(212, 175, 55, 0.2);
+    }
+
+    /* Messages */
+    .messages-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      background: linear-gradient(180deg, rgba(10, 14, 27, 0.4), rgba(15, 20, 35, 0.6));
+    }
+
+    .messages-container::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .messages-container::-webkit-scrollbar-track {
+      background: rgba(10, 14, 27, 0.5);
+    }
+
+    .messages-container::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 4px;
+    }
+
+    .message {
+      display: flex;
+      gap: 12px;
+      padding: 8px 0;
+      animation: fadeInUp 0.3s ease-out;
+    }
+
+    .message-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      background: rgba(26, 31, 58, 0.5);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .message-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .message-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .message-user {
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .message-timestamp {
+      font-size: 12px;
+      color: #8b7355;
+    }
+
+    .message-text {
+      color: #e8d5a8;
+      line-height: 1.5;
+      font-size: 15px;
+      word-wrap: break-word;
+    }
+
+    /* Message Input */
+    .message-input-container {
+      padding: 16px;
+      background: rgba(10, 14, 27, 0.8);
+      border-top: 2px solid rgba(212, 175, 55, 0.2);
+      flex-shrink: 0;
+    }
+
+    .message-input-wrapper {
+      background: rgba(26, 31, 58, 0.6);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      transition: all 0.3s;
+    }
+
+    .message-input-wrapper:focus-within {
+      border-color: #d4af37;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    }
+
+    .message-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #e8d5a8;
+      font-size: 15px;
+      font-family: 'Grenze Gotisch', serif;
+      min-width: 0;
+    }
+
+    .message-input::placeholder {
+      color: #8b7355;
+    }
+
+    .input-icon {
+      font-size: 18px;
+      color: #8b7355;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .input-icon:hover,
+    .input-icon:active {
+      color: #d4af37;
+      transform: scale(1.15);
+    }
+
+    .send-btn {
+      background: #d4af37;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: #0a0e27;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .send-btn:hover,
+    .send-btn:active {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.6);
+    }
+
+    /* User Panel */
+    .user-panel {
+      width: 240px;
+      background: rgba(15, 20, 35, 0.95);
+      border-left: 2px solid rgba(212, 175, 55, 0.2);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .user-panel.hidden {
+      transform: translateX(240px);
+    }
+
+    .user-panel-header {
+      padding: 16px;
+      border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .user-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+    }
+
+    .user-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      margin: 4px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .user-item:hover,
+    .user-item:active {
+      background: rgba(212, 175, 55, 0.15);
+    }
+
+    .user-item-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      background: rgba(26, 31, 58, 0.5);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .status-indicator {
+      position: absolute;
+      bottom: -2px;
+      right: -2px;
+      width: 10px;
+      height: 10px;
+      border-radius: 5px;
+      border: 2px solid rgba(15, 20, 35, 0.9);
+    }
+
+    .user-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .user-item-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e8d5a8;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .user-item-status {
+      font-size: 12px;
+      color: #8b7355;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Utility Classes */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .landing-icon {
+        font-size: 60px;
+      }
+
+      .landing-title {
+        font-size: 36px;
+      }
+
+      .sidebar {
+        position: fixed;
+        left: 72px;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+      }
+
+      .user-panel {
+        position: fixed;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+      }
+
+      .modal-content,
+      .settings-modal {
+        max-height: 90vh;
+        max-width: calc(100vw - 40px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .landing-header {
+        margin-top: 40px;
+      }
+
+      .landing-title {
+        font-size: 32px;
+      }
+
+      .landing-subtitle {
+        font-size: 16px;
+      }
+
+      .feature-title {
+        font-size: 18px;
+      }
+
+      .server-list {
+        width: 60px;
+      }
+
+      .server-icon,
+      .home-button {
+        width: 44px;
+        height: 44px;
+      }
+
+      .add-server {
+        width: 44px;
+        height: 44px;
+      }
+
+      .sidebar {
+        left: 60px;
+      }
+
+      .sidebar,
+      .user-panel {
+        width: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    // User Status Constants
+    const USER_STATUSES = {
+      ONLINE: { label: 'Online', color: '#4ade80', icon: '🟢' },
+      AWAY: { label: 'Away', color: '#fbbf24', icon: '🟡' },
+      DO_NOT_DISTURB: { label: 'Do Not Disturb', color: '#ef4444', icon: '🔴' },
+      OFFLINE: { label: 'Offline', color: '#6b7280', icon: '⚫' }
+    };
+
+    // App State
+    const state = {
+      currentScreen: 'landing',
+      user: null,
+      userStatus: 'ONLINE',
+      servers: [
+        { id: 1, name: 'Goblin Hoard', icon: '💰' },
+        { id: 2, name: 'Dark Cave', icon: '🦇' }
+      ],
+      channels: [
+        { id: 1, name: 'general-chaos', type: 'text' },
+        { id: 2, name: 'treasure-finds', type: 'text' },
+        { id: 3, name: 'goblin-gossip', type: 'text' },
+        { id: 4, name: 'raid-planning', type: 'text' },
+        { id: 5, name: 'cave-acoustics', type: 'voice' },
+        { id: 6, name: 'midnight-howling', type: 'voice' }
+      ],
+      messages: [
+        { id: 1, user: 'GrogTheGreedy', avatar: '👹', message: 'Found shiny rock!', timestamp: '12:34 PM', color: '#d4af37' },
+        { id: 2, user: 'SneakyNibbler', avatar: '👺', message: 'Mine mine mine!', timestamp: '12:35 PM', color: '#8b4513' },
+        { id: 3, user: 'ChiefGrimtooth', avatar: '👑', message: 'All goblins report to cave entrance', timestamp: '12:36 PM', color: '#4169e1' }
+      ],
+      onlineUsers: [
+        { name: 'GrogTheGreedy', status: 'ONLINE', customStatus: 'Hoarding treasures', avatar: '👹' },
+        { name: 'SneakyNibbler', status: 'AWAY', customStatus: 'Sneaking around', avatar: '👺' },
+        { name: 'ChiefGrimtooth', status: 'DO_NOT_DISTURB', customStatus: 'Planning schemes', avatar: '👑' },
+        { name: 'ToadstoolTina', status: 'OFFLINE', customStatus: 'Foraging', avatar: '🍄' }
+      ],
+      currentServer: 0,
+      currentChannel: 0,
+      showSidebar: true,
+      showUserPanel: true,
+      showServerSetup: false,
+      showSettings: false,
+      serverSetupTab: 'create',
+      serverIcon: '💰',
+      settings: {
+        pushNotifications: true,
+        messageSounds: true,
+        showOnlineStatus: true,
+        readReceipts: true,
+        compactMode: false
+      }
+    };
+
+    // Render Functions
+    function render() {
+      const app = document.getElementById('app');
+      
+      if (state.currentScreen === 'landing') {
+        app.innerHTML = renderLandingPage();
+      } else if (state.currentScreen === 'login') {
+        app.innerHTML = renderLoginScreen();
+      } else if (state.currentScreen === 'register') {
+        app.innerHTML = renderRegisterScreen();
+      } else if (state.currentScreen === 'chat') {
+        app.innerHTML = renderChatApp();
+      }
+
+      attachEventListeners();
+    }
+
+    function renderLandingPage() {
+      return `
+        <div class="landing-container">
+          <div class="landing-header">
+            <div class="landing-icon">🏰</div>
+            <div class="landing-title">GoblinCave</div>
+            <div class="landing-subtitle">
+              Join the goblin hoard and connect with fellow treasure hunters
+            </div>
+          </div>
+
+          <div class="landing-features">
+            <div class="feature-item">
+              <div class="feature-icon">⚔️</div>
+              <div class="feature-title">Epic Raids</div>
+              <div class="feature-text">
+                Coordinate raids and share treasures with your goblin clan
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">💰</div>
+              <div class="feature-title">Hoard Together</div>
+              <div class="feature-text">
+                Create servers and channels for your goblin gatherings
+              </div>
+            </div>
+
+            <div class="feature-item">
+              <div class="feature-icon">🗡️</div>
+              <div class="feature-title">Real-time Chat</div>
+              <div class="feature-text">
+                Communicate instantly with your fellow goblins
+              </div>
+            </div>
+          </div>
+
+          <div class="landing-actions">
+            <button class="primary-button" onclick="goToLogin()">Get Started</button>
+            <div class="landing-footer">Free to join • No credit card required</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderLoginScreen() {
+      return `
+        <div class="auth-container">
+          <div class="auth-content">
+            <div class="auth-header">
+              <div class="auth-icon">🏰</div>
+              <div class="auth-title">Welcome Back</div>
+              <div class="auth-subtitle">Enter the goblin cave</div>
+            </div>
+
+            <form class="auth-form" onsubmit="handleLogin(event)">
+              <div class="input-group">
+                <label class="input-label">Email Address</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">📧</span>
+                  <input type="email" class="auth-input" id="loginEmail" 
+                         placeholder="goblin@cave.com" required>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Password</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">🔒</span>
+                  <input type="password" class="auth-input" id="loginPassword" 
+                         placeholder="Enter your password" required>
+                </div>
+              </div>
+
+              <a href="#" class="forgot-password">Forgot Password?</a>
+
+              <button type="submit" class="auth-button">Login</button>
+
+              <div class="auth-switch">
+                Don't have an account? 
+                <a href="#" class="auth-switch-link" onclick="goToRegister(event)">Register</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderRegisterScreen() {
+      return `
+        <div class="auth-container">
+          <div class="auth-content">
+            <div class="auth-header">
+              <div class="auth-icon">🏰</div>
+              <div class="auth-title">Join the Hoard</div>
+              <div class="auth-subtitle">Create your goblin account</div>
+            </div>
+
+            <form class="auth-form" onsubmit="handleRegister(event)">
+              <div class="input-group">
+                <label class="input-label">Username</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">👹</span>
+                  <input type="text" class="auth-input" id="registerUsername" 
+                         placeholder="GoblinWarrior" required>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Email Address</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">📧</span>
+                  <input type="email" class="auth-input" id="registerEmail" 
+                         placeholder="goblin@cave.com" required>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Password</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">🔒</span>
+                  <input type="password" class="auth-input" id="registerPassword" 
+                         placeholder="At least 6 characters" required minlength="6">
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Confirm Password</label>
+                <div class="input-wrapper">
+                  <span class="input-icon">🔒</span>
+                  <input type="password" class="auth-input" id="registerConfirmPassword" 
+                         placeholder="Re-enter password" required>
+                </div>
+              </div>
+
+              <button type="submit" class="auth-button">Create Account</button>
+
+              <div class="auth-switch">
+                Already have an account? 
+                <a href="#" class="auth-switch-link" onclick="goToLogin(event)">Login</a>
+              </div>
+
+              <div class="terms-text">
+                By registering, you agree to our Terms of Service and Privacy Policy
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderChatApp() {
+      const server = state.servers[state.currentServer];
+      const channel = state.channels[state.currentChannel];
+      const onlineCount = state.onlineUsers.filter(u => u.status !== 'OFFLINE').length + 1;
+
+      return `
+        <div class="app-container">
+          ${renderServerList()}
+          ${renderSidebar()}
+          ${renderMainContent()}
+          ${renderUserPanel()}
+          ${state.showServerSetup ? renderServerSetupModal() : ''}
+          ${state.showSettings ? renderSettingsModal() : ''}
+        </div>
+      `;
+    }
+
+    function renderServerList() {
+      return `
+        <div class="server-list">
+          <div class="home-button">👑</div>
+          <div class="divider"></div>
+          ${state.servers.map((server, index) => `
+            <div class="server-icon ${index === state.currentServer ? 'active' : ''}" 
+                 onclick="switchServer(${index})">
+              ${server.icon}
+            </div>
+          `).join('')}
+          <div class="add-server" onclick="openServerSetup()">+</div>
+        </div>
+      `;
+    }
+
+    function renderSidebar() {
+      const server = state.servers[state.currentServer];
+      const textChannels = state.channels.filter(ch => ch.type === 'text');
+      const voiceChannels = state.channels.filter(ch => ch.type === 'voice');
+
+      return `
+        <div class="sidebar ${!state.showSidebar ? 'hidden' : ''}">
+          <div class="server-header">${server.name} ⚔️</div>
+          <div class="channels">
+            <div class="channel-category">📜 TEXT CHANNELS</div>
+            ${textChannels.map((channel, index) => {
+              const channelIndex = state.channels.indexOf(channel);
+              return `
+                <div class="channel ${channelIndex === state.currentChannel ? 'active' : ''}" 
+                     onclick="switchChannel(${channelIndex})">
+                  <span>#</span>
+                  <span>${channel.name}</span>
+                </div>
+              `;
+            }).join('')}
+            <div class="channel-category">🔊 VOICE CHANNELS</div>
+            ${voiceChannels.map((channel, index) => {
+              const channelIndex = state.channels.indexOf(channel);
+              return `
+                <div class="channel ${channelIndex === state.currentChannel ? 'active' : ''}" 
+                     onclick="switchChannel(${channelIndex})">
+                  <span>🔊</span>
+                  <span>${channel.name}</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+          <div class="user-area">
+            <div class="user-avatar">
+              🎭
+              <div class="user-status-dot" style="background: ${USER_STATUSES[state.userStatus].color}"></div>
+            </div>
+            <div class="user-info">
+              <div class="user-name">${state.user.username}</div>
+              <div class="user-status">${USER_STATUSES[state.userStatus].label}</div>
+            </div>
+            <div class="user-controls">
+              <div class="icon-btn" onclick="openSettings()">⚙️</div>
+              <div class="icon-btn" onclick="handleLogout()">🚪</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderMainContent() {
+      const channel = state.channels[state.currentChannel];
+
+      return `
+        <div class="main-content">
+          <div class="chat-header">
+            <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+            <span style="font-size: 24px; color: #d4af37;">#</span>
+            <div class="channel-name">${channel.name}</div>
+            <div class="toolbar-btn" onclick="toggleUserPanel()">👥</div>
+          </div>
+
+          <div class="messages-container" id="messagesContainer">
+            ${state.messages.map(msg => `
+              <div class="message">
+                <div class="message-avatar" style="border-color: ${msg.color}">
+                  ${msg.avatar}
+                </div>
+                <div class="message-content">
+                  <div class="message-header">
+                    <span class="message-user" style="color: ${msg.color}">${msg.user}</span>
+                    <span class="message-timestamp">${msg.timestamp}</span>
+                  </div>
+                  <div class="message-text">${msg.message}</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="message-input-container">
+            <form onsubmit="sendMessage(event)" class="message-input-wrapper">
+              <span class="input-icon">➕</span>
+              <input type="text" class="message-input" id="messageInput" 
+                     placeholder="Send message to #${channel.name}..." required>
+              <span class="input-icon">😊</span>
+              <span class="input-icon">🖼️</span>
+              <span class="input-icon">📎</span>
+              <button type="submit" class="send-btn">➤</button>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderUserPanel() {
+      const onlineCount = state.onlineUsers.filter(u => u.status !== 'OFFLINE').length + 1;
+      const onlineUsers = state.onlineUsers.filter(u => u.status !== 'OFFLINE');
+      const offlineUsers = state.onlineUsers.filter(u => u.status === 'OFFLINE');
+
+      return `
+        <div class="user-panel ${!state.showUserPanel ? 'hidden' : ''}">
+          <div class="user-panel-header">GOBLINS — ${onlineCount}</div>
+          <div class="user-list">
+            <div class="user-item">
+              <div class="user-item-avatar">
+                🎭
+                <div class="status-indicator" style="background: ${USER_STATUSES[state.userStatus].color}"></div>
+              </div>
+              <div class="user-item-info">
+                <div class="user-item-name">${state.user.username} (You)</div>
+                <div class="user-item-status">${USER_STATUSES[state.userStatus].label}</div>
+              </div>
+            </div>
+            ${onlineUsers.map(user => `
+              <div class="user-item">
+                <div class="user-item-avatar">
+                  ${user.avatar}
+                  <div class="status-indicator" style="background: ${USER_STATUSES[user.status].color}"></div>
+                </div>
+                <div class="user-item-info">
+                  <div class="user-item-name">${user.name}</div>
+                  <div class="user-item-status">${user.customStatus}</div>
+                </div>
+              </div>
+            `).join('')}
+            ${offlineUsers.length > 0 ? `
+              <div class="channel-category">OFFLINE</div>
+              ${offlineUsers.map(user => `
+                <div class="user-item">
+                  <div class="user-item-avatar" style="opacity: 0.5">
+                    ${user.avatar}
+                    <div class="status-indicator" style="background: ${USER_STATUSES[user.status].color}"></div>
+                  </div>
+                  <div class="user-item-info">
+                    <div class="user-item-name" style="opacity: 0.5">${user.name}</div>
+                    <div class="user-item-status">Offline</div>
+                  </div>
+                </div>
+              `).join('')}
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderServerSetupModal() {
+      const icons = ['💰', '🦇', '🍄', '💎', '⚔️', '🗡️', '🏰', '👑', '🔥', '⭐'];
+
+      return `
+        <div class="modal-overlay" onclick="closeModalOverlay(event)">
+          <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div class="modal-title">Get Started</div>
+              <div class="modal-close" onclick="closeServerSetup()">✕</div>
+            </div>
+
+            <div class="tab-container">
+              <div class="tab ${state.serverSetupTab === 'create' ? 'active' : ''}" 
+                   onclick="switchServerSetupTab('create')">
+                Create Server
+              </div>
+              <div class="tab ${state.serverSetupTab === 'join' ? 'active' : ''}" 
+                   onclick="switchServerSetupTab('join')">
+                Join Server
+              </div>
+            </div>
+
+            <div class="tab-content">
+              ${state.serverSetupTab === 'create' ? `
+                <div class="modal-label">Server Icon</div>
+                <div class="icon-scroll">
+                  ${icons.map(icon => `
+                    <div class="icon-option ${icon === state.serverIcon ? 'active' : ''}" 
+                         onclick="selectIcon('${icon}')">
+                      ${icon}
+                    </div>
+                  `).join('')}
+                </div>
+
+                <div class="modal-label">Server Name</div>
+                <div class="modal-input-wrapper">
+                  <input type="text" class="modal-input" id="serverName" 
+                         placeholder="My Goblin Hoard" maxlength="50">
+                </div>
+
+                <button class="modal-button" onclick="createServer()">Create Server</button>
+                <button class="skip-button" onclick="closeServerSetup()">Skip for now</button>
+              ` : `
+                <div class="modal-description">
+                  Enter an invite code to join an existing server
+                </div>
+
+                <div class="modal-label">Invite Code</div>
+                <div class="modal-input-wrapper">
+                  <input type="text" class="modal-input" id="inviteCode" 
+                         placeholder="ABC123XYZ" maxlength="20" style="text-transform: uppercase;">
+                </div>
+
+                <button class="modal-button" onclick="joinServer()">Join Server</button>
+                <button class="skip-button" onclick="closeServerSetup()">Skip for now</button>
+              `}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSettingsModal() {
+      return `
+        <div class="modal-overlay" onclick="closeModalOverlay(event)">
+          <div class="settings-modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+              <div class="modal-title">Settings</div>
+              <div class="modal-close" onclick="closeSettings()">✕</div>
+            </div>
+
+            <div class="settings-section">
+              <div class="settings-section-title">Profile</div>
+              <div class="profile-card">
+                <div class="profile-avatar">🎭</div>
+                <div class="profile-info">
+                  <div class="profile-name">${state.user.username}</div>
+                  <div class="profile-email">${state.user.email}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <div class="settings-section-title">Status</div>
+              ${Object.entries(USER_STATUSES).map(([key, status]) => `
+                <div class="status-option ${state.userStatus === key ? 'active' : ''}" 
+                     onclick="changeStatus('${key}')">
+                  <span class="status-icon">${status.icon}</span>
+                  <span class="status-label ${state.userStatus === key ? 'active' : ''}">
+                    ${status.label}
+                  </span>
+                  ${state.userStatus === key ? '<span class="status-check">✓</span>' : ''}
+                </div>
+              `).join('')}
+            </div>
+
+            <div class="settings-section">
+              <div class="settings-section-title">Notifications</div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Push Notifications</div>
+                  <div class="setting-description">Receive notifications for new messages</div>
+                </div>
+                <div class="toggle-switch ${state.settings.pushNotifications ? 'active' : ''}" 
+                     onclick="toggleSetting('pushNotifications')">
+                  <div class="toggle-thumb"></div>
+                </div>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Message Sounds</div>
+                  <div class="setting-description">Play sound for new messages</div>
+                </div>
+                <div class="toggle-switch ${state.settings.messageSounds ? 'active' : ''}" 
+                     onclick="toggleSetting('messageSounds')">
+                  <div class="toggle-thumb"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <div class="settings-section-title">Privacy</div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Show Online Status</div>
+                  <div class="setting-description">Let others see when you're online</div>
+                </div>
+                <div class="toggle-switch ${state.settings.showOnlineStatus ? 'active' : ''}" 
+                     onclick="toggleSetting('showOnlineStatus')">
+                  <div class="toggle-thumb"></div>
+                </div>
+              </div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Read Receipts</div>
+                  <div class="setting-description">Show when you've read messages</div>
+                </div>
+                <div class="toggle-switch ${state.settings.readReceipts ? 'active' : ''}" 
+                     onclick="toggleSetting('readReceipts')">
+                  <div class="toggle-thumb"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <div class="settings-section-title">Appearance</div>
+              <div class="setting-item">
+                <div class="setting-info">
+                  <div class="setting-label">Compact Mode</div>
+                  <div class="setting-description">Use smaller message spacing</div>
+                </div>
+                <div class="toggle-switch ${state.settings.compactMode ? 'active' : ''}" 
+                     onclick="toggleSetting('compactMode')">
+                  <div class="toggle-thumb"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <div class="settings-section-title">About</div>
+              <div class="about-text">GoblinCave v1.0.0</div>
+              <div class="about-text">Made with ⚔️ by Goblin Developers</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Event Handlers
+    function goToLogin(e) {
+      if (e) e.preventDefault();
+      state.currentScreen = 'login';
+      render();
+    }
+
+    function goToRegister(e) {
+      if (e) e.preventDefault();
+      state.currentScreen = 'register';
+      render();
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
+      state.user = {
+        email: email,
+        username: email.split('@')[0]
+      };
+      state.currentScreen = 'chat';
+      render();
+      scrollToBottom();
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const username = document.getElementById('registerUsername').value;
+      const email = document.getElementById('registerEmail').value;
+      const password = document.getElementById('registerPassword').value;
+      const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+      if (!email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+      }
+
+      if (password.length < 6) {
+        alert('Password must be at least 6 characters');
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+
+      state.user = {
+        email: email,
+        username: username
+      };
+      state.currentScreen = 'chat';
+      state.showServerSetup = true;
+      render();
+    }
+
+    function handleLogout() {
+      if (confirm('Are you sure you want to leave the cave?')) {
+        state.user = null;
+        state.currentScreen = 'landing';
+        render();
+      }
+    }
+
+    function switchServer(index) {
+      state.currentServer = index;
+      render();
+    }
+
+    function switchChannel(index) {
+      state.currentChannel = index;
+      render();
+      scrollToBottom();
+    }
+
+    function toggleSidebar() {
+      state.showSidebar = !state.showSidebar;
+      render();
+    }
+
+    function toggleUserPanel() {
+      state.showUserPanel = !state.showUserPanel;
+      render();
+    }
+
+    function sendMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('messageInput');
+      const message = input.value.trim();
+
+      if (message) {
+        const now = new Date();
+        const timestamp = now.toLocaleTimeString('en-US', { 
+          hour: '2-digit', 
+          minute: '2-digit' 
+        });
+
+        state.messages.push({
+          id: state.messages.length + 1,
+          user: state.user.username,
+          avatar: '🎭',
+          message: message,
+          timestamp: timestamp,
+          color: '#ff6b35'
+        });
+
+        input.value = '';
+        render();
+        scrollToBottom();
+      }
+    }
+
+    function scrollToBottom() {
+      setTimeout(() => {
+        const container = document.getElementById('messagesContainer');
+        if (container) {
+          container.scrollTop = container.scrollHeight;
+        }
+      }, 100);
+    }
+
+    function openServerSetup() {
+      state.showServerSetup = true;
+      render();
+    }
+
+    function closeServerSetup() {
+      state.showServerSetup = false;
+      render();
+    }
+
+    function switchServerSetupTab(tab) {
+      state.serverSetupTab = tab;
+      render();
+    }
+
+    function selectIcon(icon) {
+      state.serverIcon = icon;
+      render();
+    }
+
+    function createServer() {
+      const nameInput = document.getElementById('serverName');
+      const name = nameInput ? nameInput.value.trim() : '';
+
+      if (!name) {
+        alert('Please enter a server name');
+        return;
+      }
+
+      state.servers.push({
+        id: state.servers.length + 1,
+        name: name,
+        icon: state.serverIcon
+      });
+
+      state.currentServer = state.servers.length - 1;
+      state.showServerSetup = false;
+      render();
+      alert(`Server "${name}" created!`);
+    }
+
+    function joinServer() {
+      const codeInput = document.getElementById('inviteCode');
+      const code = codeInput ? codeInput.value.trim() : '';
+
+      if (!code) {
+        alert('Please enter an invite code');
+        return;
+      }
+
+      state.showServerSetup = false;
+      render();
+      alert(`Joined server with code: ${code}`);
+    }
+
+    function openSettings() {
+      state.showSettings = true;
+      render();
+    }
+
+    function closeSettings() {
+      state.showSettings = false;
+      render();
+    }
+
+    function changeStatus(newStatus) {
+      state.userStatus = newStatus;
+      render();
+    }
+
+    function toggleSetting(setting) {
+      state.settings[setting] = !state.settings[setting];
+      render();
+    }
+
+    function closeModalOverlay(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        state.showServerSetup = false;
+        state.showSettings = false;
+        render();
+      }
+    }
+
+    function attachEventListeners() {
+      // Prevent double-tap zoom on iOS
+      document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
+
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function(e) {
+        const now = Date.now();
+        if (now - lastTouchEnd <= 300) {
+          e.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+    }
+
+    // Initialize app
+    render();
+  </script>
+</body>
+</html>
